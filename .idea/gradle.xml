@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/addressApp" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/addressApp" />
+            <option value="$PROJECT_DIR$/addressApp/address-app" />
+            <option value="$PROJECT_DIR$/addressApp/address-app/api" />
+            <option value="$PROJECT_DIR$/addressApp/address-app/application" />
+            <option value="$PROJECT_DIR$/addressApp/address-app/domain" />
+            <option value="$PROJECT_DIR$/addressApp/address-app/infrastructure" />
+            <option value="$PROJECT_DIR$/addressApp/address-app/presentation" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$/gradle" />
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>

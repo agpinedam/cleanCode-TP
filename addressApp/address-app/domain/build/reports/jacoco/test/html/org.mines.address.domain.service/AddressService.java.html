@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>AddressService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">domain</a> &gt; <a href="index.source.html" class="el_package">org.mines.address.domain.service</a> &gt; <span class="el_source">AddressService.java</span></div><h1>AddressService.java</h1><pre class="source lang-java linenums">package org.mines.address.domain.service;
+
+import org.mines.address.domain.model.Address;
+import org.mines.address.port.driven.AddressRepositoryPort;
+import org.mines.address.port.driving.AddressUseCase;
+import org.mines.address.port.driving.TownUseCase;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+import java.util.Collection;
+import java.util.UUID;
+
+@Component
+public class AddressService implements AddressUseCase {
+    @Autowired
+    private AddressRepositoryPort addressRepositoryPort;
+
+    @Autowired
+    private TownUseCase townUseCase;
+
+<span class="fc" id="L23">    private final Logger logger = LoggerFactory.getLogger(AddressService.class);</span>
+
+<span class="fc" id="L25">    public AddressService(AddressRepositoryPort addressRepositoryPort, TownUseCase townUseCase) {</span>
+<span class="fc" id="L26">        this.addressRepositoryPort = addressRepositoryPort;</span>
+<span class="fc" id="L27">        this.townUseCase = townUseCase;</span>
+<span class="fc" id="L28">    }</span>
+
+    @Override
+    public Address save(Address address) {
+<span class="pc bpc" id="L32" title="1 of 2 branches missed.">        if (address.town() == null</span>
+<span class="pc bpc" id="L33" title="1 of 2 branches missed.">                || address.town().id() == null</span>
+<span class="fc bfc" id="L34" title="All 2 branches covered.">                || townUseCase.get(address.town().id()).isEmpty()) {</span>
+<span class="fc" id="L35">            throw new IllegalArgumentException(&quot;Invalid town&quot;);</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">        } else if (address.street().isBlank()) {</span>
+<span class="nc" id="L37">            throw new IllegalArgumentException(&quot;street is required&quot;);</span>
+<span class="pc bpc" id="L38" title="1 of 2 branches missed.">        } else if (address.number() &lt;= 0) {</span>
+<span class="nc" id="L39">            throw new IllegalArgumentException(&quot;invalid number&quot;);</span>
+        }
+
+<span class="fc" id="L42">        return addressRepositoryPort.insert(address);</span>
+    }
+
+    @Override
+    public Collection&lt;Address&gt; findByTown(UUID id) {
+<span class="nc" id="L47">        return addressRepositoryPort.selectAll();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

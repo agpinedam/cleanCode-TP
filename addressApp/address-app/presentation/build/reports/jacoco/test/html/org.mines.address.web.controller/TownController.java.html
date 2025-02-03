@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TownController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">presentation</a> &gt; <a href="index.source.html" class="el_package">org.mines.address.web.controller</a> &gt; <span class="el_source">TownController.java</span></div><h1>TownController.java</h1><pre class="source lang-java linenums">package org.mines.address.web.controller;
+
+import org.mines.address.api.controller.TownApi;
+import org.mines.address.api.model.Town;
+import org.mines.address.domain.model.Address;
+import org.mines.address.port.driving.AddressUseCase;
+import org.mines.address.port.driving.TownUseCase;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.net.URI;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+
+@CrossOrigin(origins = &quot;*&quot;)
+@RestController
+@RequestMapping
+public class TownController implements TownApi {
+    private TownUseCase townUseCase;
+    private AddressUseCase addressUseCase;
+
+    @Autowired
+<span class="fc" id="L29">    public TownController(TownUseCase townUseCase, AddressUseCase addressUseCase) {</span>
+<span class="fc" id="L30">        this.townUseCase = townUseCase;</span>
+<span class="fc" id="L31">        this.addressUseCase = addressUseCase;</span>
+<span class="fc" id="L32">    }</span>
+
+    @Override
+    public ResponseEntity&lt;org.mines.address.api.model.Town&gt; createTown(org.mines.address.api.model.Town town) {
+<span class="fc" id="L36">        org.mines.address.domain.model.Town saved = townUseCase.save(this.map(town));</span>
+
+<span class="fc" id="L38">        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(</span>
+<span class="fc" id="L39">                &quot;/{id}&quot;).buildAndExpand(saved.id()).toUri();</span>
+
+<span class="fc" id="L41">        return ResponseEntity.created(uri).body(map(saved));</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;String&gt; deleteTown(String id) {
+<span class="nc" id="L46">        townUseCase.remove(UUID.fromString(id));</span>
+
+<span class="nc" id="L48">        return ResponseEntity.ok(id);</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;org.mines.address.api.model.Town&gt; getTown(String id) {
+<span class="fc" id="L53">        UUID uuid = UUID.fromString(id);</span>
+
+<span class="fc" id="L55">        return townUseCase.get(uuid)</span>
+<span class="fc" id="L56">                .map(this::map)</span>
+<span class="fc" id="L57">                .map(ResponseEntity::ok)</span>
+<span class="fc" id="L58">                .orElse(ResponseEntity.notFound().build());</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;List&lt;org.mines.address.api.model.Town&gt;&gt; listTowns() {
+<span class="nc" id="L63">        return ResponseEntity.ok(townUseCase.list().stream().map(this::map).collect(Collectors.toList()));</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;org.mines.address.api.model.Town&gt; updateTown(org.mines.address.api.model.Town town) {
+<span class="nc" id="L68">        org.mines.address.domain.model.Town modelTown = this.map(town);</span>
+
+<span class="nc bnc" id="L70" title="All 2 branches missed.">        if (townUseCase.get(modelTown.id()).isPresent()) {</span>
+<span class="nc" id="L71">            return ResponseEntity.ok(this.map(townUseCase.save(modelTown)));</span>
+        } else {
+<span class="nc" id="L73">            return ResponseEntity.notFound().build();</span>
+        }
+    }
+
+    @Override
+    public ResponseEntity&lt;List&lt;org.mines.address.api.model.Address&gt;&gt; listAddresses(String id) {
+<span class="nc" id="L79">        UUID uuid = UUID.fromString(id);</span>
+
+<span class="nc" id="L81">        return ResponseEntity.ok(addressUseCase.findByTown(uuid).stream().map(this::map).collect(Collectors.toList()));</span>
+    }
+
+    @Override
+    public ResponseEntity&lt;org.mines.address.api.model.Address&gt; createAddresses(String id, org.mines.address.api.model.Address address) {
+<span class="nc" id="L86">        UUID townId = UUID.fromString(id);</span>
+
+<span class="nc" id="L88">        Address savedAddress = addressUseCase.save(this.map(townId, address));</span>
+
+<span class="nc" id="L90">        URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path(</span>
+<span class="nc" id="L91">                &quot;/{townId}/address/{id]&quot;).buildAndExpand(id, savedAddress.id()).toUri();</span>
+
+<span class="nc" id="L93">        return ResponseEntity.created(uri).body(map(savedAddress));</span>
+    }
+
+    // Map from town API to town domain
+    private org.mines.address.domain.model.Town map(org.mines.address.api.model.Town town) {
+<span class="fc" id="L98">        return org.mines.address.domain.model.Town.TownBuilder.aTown()</span>
+<span class="pc bpc" id="L99" title="1 of 2 branches missed.">                .withId(town.getId() == null ? null : UUID.fromString(town.getId()))</span>
+<span class="fc" id="L100">                .withName(town.getName())</span>
+<span class="fc" id="L101">                .withPostCode(Integer.parseInt(town.getPostCode()))</span>
+<span class="fc" id="L102">                .build();</span>
+    }
+
+    // Map from town domain to town API
+    private org.mines.address.api.model.Town map(org.mines.address.domain.model.Town town) {
+<span class="fc" id="L107">        org.mines.address.api.model.Town apiTown = new org.mines.address.api.model.Town();</span>
+<span class="fc" id="L108">        apiTown.setId(town.id().toString());</span>
+<span class="fc" id="L109">        apiTown.setName(town.name());</span>
+<span class="fc" id="L110">        apiTown.setPostCode(String.valueOf(town.postCode()));</span>
+
+<span class="fc" id="L112">        return apiTown;</span>
+    }
+
+    // Map from API address to domain Address
+    private org.mines.address.domain.model.Address map(UUID townId, org.mines.address.api.model.Address address) {
+<span class="nc" id="L117">        return Address.AddressBuilder.anAddress()</span>
+<span class="nc" id="L118">                .withNumber(address.getNumber().intValue())</span>
+<span class="nc" id="L119">                .withStreet(address.getStreet())</span>
+<span class="nc" id="L120">                .withTown(org.mines.address.domain.model.Town.TownBuilder.aTown().withId(townId).build())</span>
+<span class="nc" id="L121">                .build();</span>
+    }
+
+    // Map from domain Address to API address
+    private org.mines.address.api.model.Address map(org.mines.address.domain.model.Address address) {
+<span class="nc" id="L126">        org.mines.address.api.model.Address apiAddress = new org.mines.address.api.model.Address();</span>
+<span class="nc" id="L127">        apiAddress.setNumber((long) address.number());</span>
+<span class="nc" id="L128">        apiAddress.setStreet(address.street());</span>
+
+<span class="nc" id="L130">        return apiAddress;</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TownRepositoryAdapter.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">infrastructure</a> &gt; <a href="index.source.html" class="el_package">org.mines.address.infrastructure.repository</a> &gt; <span class="el_source">TownRepositoryAdapter.java</span></div><h1>TownRepositoryAdapter.java</h1><pre class="source lang-java linenums">package org.mines.address.infrastructure.repository;
+
+import org.mines.address.domain.model.Town;
+import org.mines.address.port.driven.TownRepositoryPort;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
+import org.springframework.stereotype.Repository;
+
+import java.util.Collection;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.UUID;
+
+@Repository
+public class TownRepositoryAdapter implements TownRepositoryPort {
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+<span class="fc" id="L22">    public TownRepositoryAdapter(JdbcTemplate jdbcTemplate) {</span>
+<span class="fc" id="L23">        this.jdbcTemplate = jdbcTemplate;</span>
+<span class="fc" id="L24">    }</span>
+
+    @Override
+    public Optional&lt;Town&gt; select(UUID uuid) {
+<span class="nc" id="L28">        return this.jdbcTemplate.query(&quot;select id,postCode,name from town where id=?&quot;, new TownRowMapper(), uuid).stream().findFirst();</span>
+    }
+
+    @Override
+    public Collection&lt;Town&gt; selectAll() {
+<span class="fc" id="L33">        return jdbcTemplate.query(&quot;select id,postCode,name from town&quot;, new TownRowMapper());</span>
+    }
+
+    @Override
+    public Town insert(Town town) {
+<span class="nc" id="L38">        final SimpleJdbcInsert simpleJdbcInsert = new SimpleJdbcInsert(Objects.requireNonNull(jdbcTemplate.getDataSource())).withTableName(&quot;town&quot;);</span>
+<span class="nc" id="L39">        final UUID uuid = UUID.randomUUID();</span>
+
+<span class="nc" id="L41">        final SqlParameterSource in = new MapSqlParameterSource()</span>
+<span class="nc" id="L42">                .addValue(&quot;id&quot;, uuid)</span>
+<span class="nc" id="L43">                .addValue(&quot;postCode&quot;, town.postCode())</span>
+<span class="nc" id="L44">                .addValue(&quot;name&quot;, town.name());</span>
+
+<span class="nc" id="L46">        simpleJdbcInsert.execute(in);</span>
+
+<span class="nc" id="L48">        return Town.TownBuilder.aTown()</span>
+<span class="nc" id="L49">                .withId(uuid)</span>
+<span class="nc" id="L50">                .withPostCode(town.postCode())</span>
+<span class="nc" id="L51">                .withName(town.name())</span>
+<span class="nc" id="L52">                .build();</span>
+
+    }
+
+    @Override
+    public Town update(Town town) {
+<span class="nc" id="L58">        jdbcTemplate.update(&quot;update town set name = ?, postCode = ? where id = ?&quot;, town.name(), town.postCode(), town.id());</span>
+
+<span class="nc" id="L60">        return town;</span>
+    }
+
+    @Override
+    public void delete(UUID uuid) {
+<span class="fc" id="L65">        jdbcTemplate.update(&quot;delete from address where town_id=?&quot;, uuid);</span>
+<span class="fc" id="L66">        jdbcTemplate.update(&quot;delete from town where id=?&quot;, uuid);</span>
+<span class="fc" id="L67">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>

@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="x-ua-compatible" content="IE=edge"/>
+<title>Test results - TownControllerTest</title>
+<link href="../css/base-style.css" rel="stylesheet" type="text/css"/>
+<link href="../css/style.css" rel="stylesheet" type="text/css"/>
+<script src="../js/report.js" type="text/javascript"></script>
+</head>
+<body>
+<div id="content">
+<h1>TownControllerTest</h1>
+<div class="breadcrumbs">
+<a href="../index.html">all</a> &gt; 
+<a href="../packages/org.mines.address.web.html">org.mines.address.web</a> &gt; TownControllerTest</div>
+<div id="summary">
+<table>
+<tr>
+<td>
+<div class="summaryGroup">
+<table>
+<tr>
+<td>
+<div class="infoBox" id="tests">
+<div class="counter">3</div>
+<p>tests</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="failures">
+<div class="counter">0</div>
+<p>failures</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="ignored">
+<div class="counter">0</div>
+<p>ignored</p>
+</div>
+</td>
+<td>
+<div class="infoBox" id="duration">
+<div class="counter">0.798s</div>
+<p>duration</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</td>
+<td>
+<div class="infoBox success" id="successRate">
+<div class="percent">100%</div>
+<p>successful</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="tabs">
+<ul class="tabLinks">
+<li>
+<a href="#tab0">Tests</a>
+</li>
+<li>
+<a href="#tab1">Standard output</a>
+</li>
+<li>
+<a href="#tab2">Standard error</a>
+</li>
+</ul>
+<div id="tab0" class="tab">
+<h2>Tests</h2>
+<table>
+<thead>
+<tr>
+<th>Test</th>
+<th>Duration</th>
+<th>Result</th>
+</tr>
+</thead>
+<tr>
+<td class="success">shouldCreateATown()</td>
+<td class="success">0.376s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">shouldGetATown()</td>
+<td class="success">0.016s</td>
+<td class="success">passed</td>
+</tr>
+<tr>
+<td class="success">shouldNotGetInstanceData()</td>
+<td class="success">0.406s</td>
+<td class="success">passed</td>
+</tr>
+</table>
+</div>
+<div id="tab1" class="tab">
+<h2>Standard output</h2>
+<span class="code">
+<pre>09:50:00,267 |-INFO in ch.qos.logback.classic.LoggerContext[default] - This is logback-classic version 1.4.14
+09:50:00,270 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - Here is a list of configurators discovered as a service, by rank: 
+09:50:00,270 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de -   org.springframework.boot.logging.logback.RootLogLevelConfigurator
+09:50:00,270 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - They will be invoked in order until ExecutionStatus.DO_NOT_INVOKE_NEXT_IF_ANY is returned.
+09:50:00,270 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - Constructed configurator of type class org.springframework.boot.logging.logback.RootLogLevelConfigurator
+09:50:00,278 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - org.springframework.boot.logging.logback.RootLogLevelConfigurator.configure() call lasted 1 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+09:50:00,278 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - Trying to configure with ch.qos.logback.classic.joran.SerializedModelConfigurator
+09:50:00,280 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - Constructed configurator of type class ch.qos.logback.classic.joran.SerializedModelConfigurator
+09:50:00,282 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.scmo]
+09:50:00,283 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback.scmo]
+09:50:00,283 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - ch.qos.logback.classic.joran.SerializedModelConfigurator.configure() call lasted 3 milliseconds. ExecutionStatus=INVOKE_NEXT_IF_ANY
+09:50:00,283 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - Trying to configure with ch.qos.logback.classic.util.DefaultJoranConfigurator
+09:50:00,284 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - Constructed configurator of type class ch.qos.logback.classic.util.DefaultJoranConfigurator
+09:50:00,285 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Could NOT find resource [logback-test.xml]
+09:50:00,287 |-INFO in ch.qos.logback.classic.LoggerContext[default] - Found resource [logback.xml] at [jar:file:/home/fadia/Desktop/Clean%20Code/addressApp/address-app/domain/build/libs/domain.jar!/logback.xml]
+09:50:00,299 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@153cd6bb - URL [jar:file:/home/fadia/Desktop/Clean%20Code/addressApp/address-app/domain/build/libs/domain.jar!/logback.xml] is not of type file
+09:50:00,370 |-WARN in ch.qos.logback.core.joran.action.IncludeAction - Could not find resource corresponding to [/org/springframework/boot/logging/logback/base.xml]
+09:50:00,430 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [STDOUT]
+09:50:00,430 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+09:50:00,443 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+09:50:00,484 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+09:50:00,484 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [STDOUT] to Logger[ROOT]
+09:50:00,485 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@61d84e08 - End of configuration.
+09:50:00,487 |-INFO in ch.qos.logback.classic.joran.JoranConfigurator@2d9f64c9 - Registering current configuration as safe fallback point
+09:50:00,487 |-INFO in ch.qos.logback.classic.util.ContextInitializer@4339e0de - ch.qos.logback.classic.util.DefaultJoranConfigurator.configure() call lasted 203 milliseconds. ExecutionStatus=DO_NOT_INVOKE_NEXT_IF_ANY
+
+09:50:01,218 |-INFO in ch.qos.logback.core.joran.spi.ConfigurationWatchList@6a8a551e - URL [jar:file:/home/fadia/Desktop/Clean%20Code/addressApp/address-app/domain/build/libs/domain.jar!/logback.xml] is not of type file
+09:50:01,222 |-WARN in ch.qos.logback.core.joran.action.IncludeAction - Could not find resource corresponding to [/org/springframework/boot/logging/logback/base.xml]
+09:50:01,224 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - Processing appender named [STDOUT]
+09:50:01,224 |-INFO in ch.qos.logback.core.model.processor.AppenderModelHandler - About to instantiate appender of type [ch.qos.logback.core.ConsoleAppender]
+09:50:01,225 |-INFO in ch.qos.logback.core.model.processor.ImplicitModelHandler - Assuming default type [ch.qos.logback.classic.encoder.PatternLayoutEncoder] for [encoder] property
+09:50:01,225 |-INFO in ch.qos.logback.classic.model.processor.RootLoggerModelHandler - Setting level of ROOT logger to INFO
+09:50:01,226 |-INFO in ch.qos.logback.classic.jul.LevelChangePropagator@3cc9632d - Propagating INFO level on Logger[ROOT] onto the JUL framework
+09:50:01,227 |-INFO in ch.qos.logback.core.model.processor.AppenderRefModelHandler - Attaching appender named [STDOUT] to Logger[ROOT]
+09:50:01,227 |-INFO in ch.qos.logback.core.model.processor.DefaultProcessor@53982523 - End of configuration.
+09:50:01,227 |-INFO in org.springframework.boot.logging.logback.SpringBootJoranConfigurator@489110c2 - Registering current configuration as safe fallback point
+
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v3.2.4)
+
+09:50:01.340 [background-preinit] INFO  o.h.validator.internal.util.Version - HV000001: Hibernate Validator 8.0.1.Final
+09:50:01.479 [Test worker] INFO  o.m.address.web.TownControllerTest - Starting TownControllerTest using Java 21.0.6 with PID 31330 (started by fadia in /home/fadia/Desktop/Clean Code/addressApp/address-app/presentation)
+09:50:01.480 [Test worker] INFO  o.m.address.web.TownControllerTest - No active profile set, falling back to 1 default profile: &quot;default&quot;
+09:50:05.094 [Test worker] INFO  o.s.b.t.m.w.SpringBootMockServletContext - Initializing Spring TestDispatcherServlet ''
+09:50:05.095 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Initializing Servlet ''
+09:50:05.102 [Test worker] INFO  o.s.t.w.s.TestDispatcherServlet - Completed initialization in 4 ms
+09:50:05.220 [Test worker] INFO  o.m.address.web.TownControllerTest - Started TownControllerTest in 4.228 seconds (process running for 6.943)
+</pre>
+</span>
+</div>
+<div id="tab2" class="tab">
+<h2>Standard error</h2>
+<span class="code">
+<pre>WARNING: A Java agent has been loaded dynamically (/home/fadia/.gradle/caches/modules-2/files-2.1/net.bytebuddy/byte-buddy-agent/1.14.11/f9cb566608fbac6bc7bf54901a7aa11543a989ee/byte-buddy-agent-1.14.11.jar)
+WARNING: If a serviceability tool is in use, please run with -XX:+EnableDynamicAgentLoading to hide this warning
+WARNING: If a serviceability tool is not in use, please run with -Djdk.instrument.traceUsage for more information
+WARNING: Dynamic loading of agents will be disallowed by default in a future release
+</pre>
+</span>
+</div>
+</div>
+<div id="footer">
+<p>
+<div>
+<label class="hidden" id="label-for-line-wrapping-toggle" for="line-wrapping-toggle">Wrap lines
+<input id="line-wrapping-toggle" type="checkbox" autocomplete="off"/>
+</label>
+</div>Generated by 
+<a href="http://www.gradle.org">Gradle 8.6</a> at Jan 31, 2025, 9:50:06 AM</p>
+</div>
+</div>
+</body>
+</html>

@@ -1,0 +1,10 @@
+README.md
+pom.xml
+src/main/java/org/mines/address/api/controller/ApiUtil.java
+src/main/java/org/mines/address/api/controller/PersonApi.java
+src/main/java/org/mines/address/api/controller/StatisticsApi.java
+src/main/java/org/mines/address/api/model/BirthCertificate.java
+src/main/java/org/mines/address/api/model/DeletePerson200Response.java
+src/main/java/org/mines/address/api/model/Error.java
+src/main/java/org/mines/address/api/model/Person.java
+src/main/java/org/mines/address/api/model/Statistics.java
