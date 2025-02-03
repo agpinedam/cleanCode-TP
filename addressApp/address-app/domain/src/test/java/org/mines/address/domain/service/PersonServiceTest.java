@@ -2,6 +2,10 @@ package org.mines.address.domain.service;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mines.address.domain.model.Person;
+import org.mines.address.port.driven.PersonRepositoryPort;
+import org.mines.address.port.driving.BirthCertificateUseCase;
+import org.mines.address.port.driving.PersonUseCase;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -17,57 +21,60 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 public class PersonServiceTest {
 
-        @Mock
-        private  ;
+    @Mock
+    private PersonRepositoryPort personRepository;
 
-        @Mock
-        private TownUseCase townUseCase;
+    @Mock
+    private PersonUseCase personUseCase ;
 
-        @InjectMocks
-        private AddressService addressService = new AddressService(addressRepositoryPort, townUseCase);
+    @InjectMocks
+    private PersonService personService;
 
-        @Test
-        void shouldSaveAnAddress() {
-            // GIVEN
-            UUID townId = UUID.randomUUID();
-            Town town = Town.TownBuilder.aTown().withId(townId).build();
-            when(townUseCase.get(townId)).thenReturn(Optional.of(town));
+    @Test
+    void shouldSaveAPerson() {
+        // GIVEN
+        UUID personId = UUID.randomUUID();
+        Person person = Person.PersonBuilder.aPerson()
+                .withId(personId)
+                .build();
 
-            Address persisted = Address.AddressBuilder.anAddress()
-                    .withId(UUID.randomUUID())
-                    .withTown(town)
-                    .build();
-            when(addressRepositoryPort.insert(any())).thenReturn(persisted);
+        when(personRepository.insert(any())).thenReturn(person);
 
-            // WHEN
-            Address address = addressService.save(Address.AddressBuilder.anAddress()
-                    .withTown(town)
-                    .withNumber(10)
-                    .withStreet("Rue de l'avenue")
-                    .build());
+        // WHEN
+        Person savedPerson = personService.save(Person.PersonBuilder.aPerson()
+                .withId(personId)
+                .withFirstName("toto")
+                .withLastName("tati")
+                .build());
 
-            // THEN
-            assertEquals(persisted.id(), address.id());
-        }
+        // THEN
+        assertEquals(person.id(), savedPerson.id());
+    }
 
-        @Test
-        void shouldNotSaveAddressWhenTownDoesNotExist() {
-            // GIVEN
-            when(townUseCase.get(any())).thenReturn(Optional.empty());
 
-            // WHEN
-            // THEN
+    @Test
+    void shouldThrowExceptionWhenPersonAlreadyExists() {
+        // GIVEN
+        UUID personId = UUID.randomUUID();
+        Person person = Person.PersonBuilder.aPerson()
+                .withId(personId)
+                .withFirstName("John")
+                .withLastName("Doe")
+                .build();
 
-            IllegalArgumentException invalidTown = assertThrows(IllegalArgumentException.class, () -> addressService.save(Address.AddressBuilder.anAddress()
-                    .withTown(Town.TownBuilder.aTown().withId(UUID.randomUUID()).build())
-                    .withNumber(10)
-                    .withStreet("Rue de l'avenue")
-                    .build()));
+        // Mock behavior: The person already exists
+        when(personUseCase.get(personId)).thenReturn(Optional.of(person));
 
-            assertEquals("Invalid town", invalidTown.getMessage());
+        // WHEN & THEN: Expect an exception when trying to save
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            personService.save(person);
+        });
 
-            verifyNoInteractions(addressRepositoryPort);
-        }
+        assertEquals("Person already exists with id: " + personId, exception.getMessage());
+
+        // Verify that the repository insert was never called
+        verifyNoInteractions(personRepository);
+    }
 
     }
 

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Statistics.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">domain</a> &gt; <a href="index.source.html" class="el_package">org.mines.address.domain.model</a> &gt; <span class="el_source">Statistics.java</span></div><h1>Statistics.java</h1><pre class="source lang-java linenums">package org.mines.address.domain.model;
+
+import java.util.Map;
+
+<span class="nc" id="L5">public record Statistics(int totalPersons, int totalBirthCertificates, double averageAge) {</span>
+
+    public static final class StatisticsBuilder {
+        private int totalPersons;
+        private int totalBirthCertificates;
+        private double averageAge;
+        private Map&lt;String, Integer&gt; personsByAgeGroup;
+
+        private StatisticsBuilder() {
+        }
+
+        public static StatisticsBuilder aStatistics() {
+<span class="nc" id="L17">            return new StatisticsBuilder();</span>
+        }
+
+        public StatisticsBuilder withTotalPersons(int totalPersons) {
+<span class="nc" id="L21">            this.totalPersons = totalPersons;</span>
+<span class="nc" id="L22">            return this;</span>
+        }
+
+        public StatisticsBuilder withTotalBirthCertificates(int totalBirthCertificates) {
+<span class="nc" id="L26">            this.totalBirthCertificates = totalBirthCertificates;</span>
+<span class="nc" id="L27">            return this;</span>
+        }
+
+        public StatisticsBuilder withAverageAge(double averageAge) {
+<span class="nc" id="L31">            this.averageAge = averageAge;</span>
+<span class="nc" id="L32">            return this;</span>
+        }
+
+        public StatisticsBuilder withPersonsByAgeGroup(Map&lt;String, Integer&gt; personsByAgeGroup) {
+<span class="nc" id="L36">            this.personsByAgeGroup = personsByAgeGroup;</span>
+<span class="nc" id="L37">            return this;</span>
+        }
+
+        public Statistics build() {
+<span class="nc" id="L41">            return new Statistics(totalPersons, totalBirthCertificates, averageAge);</span>
+        }
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
