@@ -1,0 +1,267 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Civil Status - Registry App
+  license:
+    name: MIT
+servers:
+  - url: http://localhost:8080
+paths:
+  /person:
+    get:
+      summary: List all persons
+      operationId: listPersons
+      tags:
+        - person
+      responses:
+        '200':
+          description: An array of persons
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Person'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a person record
+      operationId: createPerson
+      tags:
+        - person
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Person'
+      responses:
+        '201':
+          description: Created person record
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Person'
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /person/{id}:
+    get:
+      summary: Get details of a specific person
+      operationId: getPerson
+      tags:
+        - person
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the person
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Details of the requested person
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Person"
+        '404':
+          description: Person not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    delete:
+      summary: Delete a person record
+      operationId: deletePerson
+      tags:
+        - person
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The ID of the person
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Person record deleted
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: "Person deleted successfully"
+        '404':
+          description: Person not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /person/{id}/birthCertificate:
+    get:
+      summary: Retrieve birth certificate of a person
+      operationId: getBirthCertificate
+      tags:
+        - birthCertificate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The person ID
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Birth certificate details
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BirthCertificate"
+        '404':
+          description: Birth certificate not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+    post:
+      summary: Create a birth certificate
+      operationId: createBirthCertificate
+      tags:
+        - birthCertificate
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: The person ID
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BirthCertificate'
+      responses:
+        '201':
+          description: Created birth certificate
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BirthCertificate"
+        '400':
+          description: Invalid request body
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /statistics:
+    get:
+      summary: Retrieve general statistics
+      operationId: getStatistics
+      tags:
+        - statistics
+      responses:
+        '200':
+          description: General statistics data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Statistics"
+        '500':
+          description: Internal server error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+components:
+  schemas:
+    Person:
+      required:
+        - firstName
+        - lastName
+        - birthDate
+      properties:
+        id:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        birthDate:
+          type: string
+          format: date
+    BirthCertificate:
+      required:
+        - personId
+        - birthPlace
+      properties:
+        id:
+          type: string
+        personId:
+          type: string
+        birthPlace:
+          type: string
+    Statistics:
+      properties:
+        totalPersons:
+          type: integer
+          description: Total number of persons in the registry
+        totalBirthCertificates:
+          type: integer
+          description: Total number of birth certificates issued
+        averageAge:
+          type: number
+          format: float
+          description: Average age of persons in the registry
+        personsByAgeGroup:
+          type: object
+          additionalProperties:
+            type: integer
+          description: Number of persons categorized by age groups
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer

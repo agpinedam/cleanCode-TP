@@ -1,0 +1,60 @@
+# Directorios y archivos generados por Gradle
+.gradle/
+build/
+
+# Configuración de Gradle
+# gradle-app.setting
+# gradle.properties
+# gradlew
+# gradlew.bat
+
+# Directorio de dependencias descargadas por Gradle
+!gradle/wrapper/gradle-wrapper.jar
+gradle/wrapper/gradle-wrapper.properties
+
+# Archivos de configuración de IDEs (IntelliJ, Eclipse, VS Code, NetBeans)
+.idea/
+*.iml
+*.ipr
+*.iws
+*.vscode/
+.classpath
+.project
+.settings/
+
+# Archivos compilados
+bin/
+out/
+*.class
+
+# Archivos generados por el sistema
+*.log
+*.tmp
+*.swp
+*.swo
+*.bak
+*.orig
+.DS_Store
+Thumbs.db
+
+# Archivos de prueba y cobertura
+test-results/
+test-output/
+coverage/
+jacoco/
+*.ec
+*.exec
+
+# Configuración y caché de Maven (si se usa en paralelo con Gradle)
+.mvn/
+.m2/
+
+# Configuración de contenedores Docker y Kubernetes (si aplica)
+docker-compose.override.yml
+*.dockerfile
+.kube/
+
+# Archivos de configuración de sistema operativo y entornos virtuales
+*.env
+*.bashrc
+*.zshrc
