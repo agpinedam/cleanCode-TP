@@ -2,7 +2,7 @@
 
 import java.util.Map;
 
-<span class="nc" id="L5">public record Statistics(int totalPersons, int totalBirthCertificates, double averageAge) {</span>
+<span class="fc" id="L5">public record Statistics(int totalPersons, int totalBirthCertificates, double averageAge) {</span>
 
     public static final class StatisticsBuilder {
         private int totalPersons;
@@ -14,12 +14,12 @@ import java.util.Map;
         }
 
         public static StatisticsBuilder aStatistics() {
-<span class="nc" id="L17">            return new StatisticsBuilder();</span>
+<span class="fc" id="L17">            return new StatisticsBuilder();</span>
         }
 
         public StatisticsBuilder withTotalPersons(int totalPersons) {
-<span class="nc" id="L21">            this.totalPersons = totalPersons;</span>
-<span class="nc" id="L22">            return this;</span>
+<span class="fc" id="L21">            this.totalPersons = totalPersons;</span>
+<span class="fc" id="L22">            return this;</span>
         }
 
         public StatisticsBuilder withTotalBirthCertificates(int totalBirthCertificates) {
@@ -28,17 +28,17 @@ import java.util.Map;
         }
 
         public StatisticsBuilder withAverageAge(double averageAge) {
-<span class="nc" id="L31">            this.averageAge = averageAge;</span>
-<span class="nc" id="L32">            return this;</span>
+<span class="fc" id="L31">            this.averageAge = averageAge;</span>
+<span class="fc" id="L32">            return this;</span>
         }
 
         public StatisticsBuilder withPersonsByAgeGroup(Map&lt;String, Integer&gt; personsByAgeGroup) {
-<span class="nc" id="L36">            this.personsByAgeGroup = personsByAgeGroup;</span>
-<span class="nc" id="L37">            return this;</span>
+<span class="fc" id="L36">            this.personsByAgeGroup = personsByAgeGroup;</span>
+<span class="fc" id="L37">            return this;</span>
         }
 
         public Statistics build() {
-<span class="nc" id="L41">            return new Statistics(totalPersons, totalBirthCertificates, averageAge);</span>
+<span class="fc" id="L41">            return new Statistics(totalPersons, totalBirthCertificates, averageAge);</span>
         }
     }
 }

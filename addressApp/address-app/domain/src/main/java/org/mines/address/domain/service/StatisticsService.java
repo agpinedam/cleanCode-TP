@@ -40,10 +40,10 @@ public class StatisticsService {
     }
 
     private int calculateAge(Person person) {
-        if (person.getBirthDate()== null) {
+        if (person.birthDate()== null) {
             return 0;
         }
-        return Period.between(person.getBirthDate(), LocalDate.now()).getYears();
+        return Period.between(person.birthDate(), LocalDate.now()).getYears();
     }
 
     private Map<String, Integer> groupByAgeCategory(List<Person> persons) {

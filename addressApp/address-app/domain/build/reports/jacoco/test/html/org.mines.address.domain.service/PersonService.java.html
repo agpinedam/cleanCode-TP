@@ -12,21 +12,21 @@ public class PersonService {
     private final PersonRepositoryPort personRepository;
     private final PersonUseCase personUseCase; // Utilisation de PersonUseCase
 
-<span class="fc" id="L15">    public PersonService(PersonRepositoryPort personRepository, PersonUseCase personUseCase) {</span>
-<span class="fc" id="L16">        this.personRepository = personRepository;</span>
-<span class="fc" id="L17">        this.personUseCase = personUseCase;</span>
-<span class="fc" id="L18">    }</span>
+<span class="nc" id="L15">    public PersonService(PersonRepositoryPort personRepository, PersonUseCase personUseCase) {</span>
+<span class="nc" id="L16">        this.personRepository = personRepository;</span>
+<span class="nc" id="L17">        this.personUseCase = personUseCase;</span>
+<span class="nc" id="L18">    }</span>
 
     public Person save(Person person) {
         // Vérifier si la personne existe déjà via PersonUseCase
-<span class="fc" id="L22">        Optional&lt;Person&gt; existingPerson = personUseCase.get(person.id());</span>
+<span class="nc" id="L22">        Optional&lt;Person&gt; existingPerson = personUseCase.get(person.id());</span>
 
-<span class="fc bfc" id="L24" title="All 2 branches covered.">        if (existingPerson.isPresent()) {</span>
-<span class="fc" id="L25">            throw new IllegalArgumentException(&quot;Person already exists with id: &quot; + person.id());</span>
+<span class="nc bnc" id="L24" title="All 2 branches missed.">        if (existingPerson.isPresent()) {</span>
+<span class="nc" id="L25">            throw new IllegalArgumentException(&quot;Person already exists with id: &quot; + person.id());</span>
         }
 
         // Insérer la personne dans le repository
-<span class="fc" id="L29">        return personRepository.insert(person);</span>
+<span class="nc" id="L29">        return personRepository.insert(person);</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.11.202310140853</span></div></body></html>
