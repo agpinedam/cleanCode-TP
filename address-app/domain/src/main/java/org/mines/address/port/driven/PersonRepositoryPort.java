@@ -12,8 +12,6 @@ public interface PersonRepositoryPort {
 
     Optional<Person> selectById(UUID id);
 
-    Collection<Person> selectAll();
-
     void delete(Person person);
 
     List<Person> findAll();

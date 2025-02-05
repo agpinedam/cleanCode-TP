@@ -12,11 +12,11 @@ public class StatisticsRowMapper implements RowMapper<Statistics> {
     @Override
     public Statistics mapRow(ResultSet rs, int rowNum) throws SQLException {
         return Statistics.StatisticsBuilder.aStatistics()
-                .withTotalPersons(rowNum)
-                .withTotalBirthCertificates(rowNum)
-                .withAverageAge(rowNum)
-                .withPersonsByAgeGroup(null)
+                .withTotalPersons(rs.getInt("total_persons"))
+                .withTotalBirthCertificates(rs.getInt("total_birth_certificates"))
+                .withAverageAge(rs.getDouble("average_age"))
                 .build();
     }
+    
 
 }
