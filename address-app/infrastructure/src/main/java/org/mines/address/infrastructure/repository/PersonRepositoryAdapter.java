@@ -2,7 +2,6 @@ package org.mines.address.infrastructure.repository;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
